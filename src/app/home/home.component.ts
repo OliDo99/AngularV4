@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit{
       this.getData();
     }
     title = 'AngularV3';
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,private route: ActivatedRoute) {}
     isCollapsed = [false,false,false];
     show = -1;
     phones!:any;  
@@ -29,10 +30,13 @@ export class HomeComponent implements OnInit{
     }
   
     getData(){
-      this.http.get(this.url +"/getData")
+      this.route.params.subscribe(params=>{
+        this.http.post(this.url +"/getData",{"securityContexts": params['ID']})
       .subscribe((data:any) => {
         this.phones= data.data;
       })
+      })
+      
     }
   
     markDone(id: number){
