@@ -22,16 +22,15 @@ export class RoutingComponent {
         .subscribe((data:any)=>{
           placeholder = data["Result"][0]["SecurityContexts"];
           placeholder.forEach((element: any) => {              
-              this.arrData.push(element)
-              console.log(element);
+              this.arrData.push(element);
           });
          
         })
       }
     );
   }
-  Presed(ID:string){
-    this.router.navigate(['/home', {ID: ID}]);
+  Presed(ID:string,Name:string){
+    this.router.navigate(['/home', {ID: ID,Name:Name}]);
   }
   
 }

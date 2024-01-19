@@ -1,14 +1,42 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form>
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+<!--<div class="container py-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+      <div class="card shadow-2-strong" style="border-radius: 1rem;">
+        <div class="card-body p-5 text-center">
+
+          <h3 class="mb-5">Login</h3>
+
+          <div class="form-outline mb-4">
+            <input type="text" id="username" class="form-control form-control-lg" />
+            <label class="form-label" for="username">Username</label>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input type="password" id="password" class="form-control form-control-lg" />
+            <label class="form-label" for="password">Password</label>
+          </div>
+
+          <div class="btn btn-primary btn-lg btn-block" (click)="AuthenticateExt()">Login</div>
+
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password"  required>
-    </div>
-    <div class="btn btn-dark" (click)="AuthenticateExt()">Login</div>
-  </form>
-</div>
+  </div>
+</div>-->
+<mat-card>
+
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <mat-form-field [floatLabel]="getFloatLabelValue()">
+      <mat-label>Username</mat-label>
+      <input matInput >
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-form-field [floatLabel]="getFloatLabelValue()">
+      <mat-label>Password</mat-label>
+      <input matInput >
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+

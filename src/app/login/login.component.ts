@@ -3,8 +3,10 @@ import {CommonModule} from '@angular/common';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
+import { FormControl} from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
@@ -14,20 +16,21 @@ import { Router } from '@angular/router';
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+
 })
 export class LoginComponent {
-  usernameInput = "oliver.dohnal1@gmail.com";
-  passwordInput = "Heslo007Heslo";
   mfaToken="sGbITsYbZASmuJ1Ixlj71JrhgNhCWQQYrht08Fij/7VZFYB7ssxfaGzSidLcMvML2pDvjUvVziiSzNH+bhbpXLQt1c8C7qUnjKK51qzXIsV4fXIkmOLY5UhTA/Lc2Hv25J/soqZg1v6UTgzySMzshg==";
-  datas:any;
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+
   constructor(private http: HttpClient,private router :Router) {}  
   
-
   AuthenticateExt(){
+    console.log((document.getElementById('password') as HTMLInputElement).value);
     this.http.post("https://api.omni-a.cz/Apps/AuthenticateExt",{
       DoMFA: false,
       ProviderType: "Native",
@@ -36,6 +39,7 @@ export class LoginComponent {
     })
     .subscribe((data:any) => {
       this.ValidateMFA(data["Result"].user_list[0].userid,data["Result"].access_token);
+      console.log(data["Result"].user_list[0].userid,data["Result"].access_token);
     })
   }
   ValidateMFA(userID:string,accessToken:string){
@@ -44,8 +48,10 @@ export class LoginComponent {
       headers: { access_token: accessToken }
     })
     .subscribe((data:any) => {
-      //this.Available(data["Result"].access_token);
       this.router.navigate(['/routing', {access_token: data["Result"].access_token}]);
     })
+  }
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
   }
 }

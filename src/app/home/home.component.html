@@ -1,3 +1,4 @@
+<!--
 <div class="container float-left">
   <div class="row">
       <div class="col-mb">
@@ -49,5 +50,69 @@
       </div>
   </div>
 </div>
+-->
 
-<div><button (click)="resetData()">Reset</button></div>
+
+<div class="container">
+  <div class="row justify-content-center">
+      <div class="col-md-8">
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="text-center">{{name}}</h3>
+              </div>
+              <div class="card-body">
+                <div class="container float-left">
+                <div class="row">
+                  <div class="col-mb">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Table</th>
+                        </tr>
+                      </thead>
+            
+                      <tbody>
+                        <tr *ngFor="let data of phones;index as i" >
+                          <td (click)="toggleCollapse(i)"  class="btn col">{{data.name}}: {{data.phoneCalls.length}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-6">
+                    <div *ngFor="let data of phones;index as i">
+                      <div *ngIf="isCollapsed[i]">
+                      <div></div>
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Phone</th>
+                              <th scope="col">Time</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Call</th>
+                              <th scope="col">Done</th>
+                            </tr>
+                          </thead>
+                      
+                          <tbody class="table-group-divider">
+                            <tr *ngFor="let item of phones[i].phoneCalls">
+                              <td>{{item.id}}</td>
+                              <td>{{item.phone}}</td>
+                              <td>{{item.time}}</td>
+                              <td>{{item.date}}</td>
+                              <td><div type="button" class="btn btn-dark">Call</div></td>
+                              <td><div type="button" class="btn btn-dark" (click)='markDone(item.id)'>Done</div></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+                <div><button (click)="resetData()">Reset</button></div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

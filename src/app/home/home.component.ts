@@ -17,12 +17,10 @@ export class HomeComponent implements OnInit{
     title = 'AngularV3';
     constructor(private http: HttpClient,private route: ActivatedRoute) {}
     isCollapsed = [false,false,false];
-    show = -1;
     phones!:any;  
     url = "http://127.0.0.1:5000";
-    visible = false;
-    usernameInput :any;
-    passwordInput :any;
+  
+    name:any;
   
     toggleCollapse(i:number): void {
       this.isCollapsed = [false,false,false];
@@ -34,15 +32,18 @@ export class HomeComponent implements OnInit{
         this.http.post(this.url +"/getData",{"securityContexts": params['ID']})
       .subscribe((data:any) => {
         this.phones= data.data;
+        this.name = params['Name']
       })
       })
       
     }
   
     markDone(id: number){
-      this.http.post(this.url +"/markDone",{"ID":id})
+      this.route.params.subscribe(params=>{
+        this.http.post(this.url +"/markDone",{"ID":id,"securityContexts": params['ID']})
       .subscribe(() => {
         this.getData();
+      })
       })
     }
   
