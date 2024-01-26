@@ -2,15 +2,25 @@ import { Component,OnInit } from '@angular/core';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    MatTableModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
 export class HomeComponent implements OnInit{
+
+  displayedColumns: string[] = [ 'name', '#'];
+  secondTable: string[] = ['#', 'phone', 'time','date','call','done'];
+
     ngOnInit(): void {
       this.getData();
     }
@@ -19,8 +29,6 @@ export class HomeComponent implements OnInit{
     isCollapsed = [false,false,false];
     phones!:any;  
     url = "http://127.0.0.1:5000";
-  
-    name:any;
   
     toggleCollapse(i:number): void {
       this.isCollapsed = [false,false,false];
@@ -32,10 +40,9 @@ export class HomeComponent implements OnInit{
         this.http.post(this.url +"/getData",{"securityContexts": params['ID']})
       .subscribe((data:any) => {
         this.phones= data.data;
-        this.name = params['Name']
+        
       })
       })
-      
     }
   
     markDone(id: number){
