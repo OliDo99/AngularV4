@@ -1,192 +1,58 @@
+<div class="row">
+  <div class="col-mb">
+    <mat-table [dataSource]="phones" >
 
-<!--  1  -->
-<div class="container py-5 ">
-  <div class="row d-flex justify-content-center align-items-center ">
-    <div >
-      <div class="card shadow-2-strong" style="border-radius: 1rem;">
-        <div class="card-body p-5 text-center">
+      <mat-header-row *matHeaderRowDef="displayedColumns" @blub></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></mat-row>
 
-          <table mat-table [dataSource]="phones">
+      <ng-container matColumnDef="#">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.phoneCalls.length}}</mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="#">
-              <th mat-header-cell *matHeaderCellDef>#</th>
-              <td mat-cell *matCellDef="let element">{{element.phoneCalls.length}}</td>
-            </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let element">{{element.name}}</td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
+    </mat-table> 
+  </div>
 
+  <div class="col-mb">
 
+    <mat-table [dataSource]="Data" *ngIf="Data" >
 
-          
-<!--  2  -->
-
-<div *ngFor="let data of phones;index as i">
-  <table mat-table [dataSource]="phones[i].phoneCalls">
-
-    <ng-container matColumnDef="#">
-      <th mat-header-cell *matHeaderCellDef>#</th>
-      <td mat-cell *matCellDef="let element">{{element.id}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>phone</th>
-      <td mat-cell *matCellDef="let element">{{element.phone}}</td>
-    </ng-container>
-    <ng-container matColumnDef="time">
-      <th mat-header-cell *matHeaderCellDef>time</th>
-      <td mat-cell *matCellDef="let element">{{element.time}}</td>
-    </ng-container>
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>date</th>
-      <td mat-cell *matCellDef="let element">{{element.date}}</td>
-    </ng-container>
-    <ng-container matColumnDef="call">
-      <th mat-header-cell *matHeaderCellDef>call</th>
-      <td mat-cell *matCellDef="let element"><div class="btn btn-dark">Call</div></td>
-    </ng-container>
-    <ng-container matColumnDef="done">
-      <th mat-header-cell *matHeaderCellDef>done</th>
-      <td mat-cell *matCellDef="let element"><div type="button" class="btn btn-dark" (click)='markDone(element.id)'>Done</div></td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="secondTable"></tr>
-    <tr mat-row *matRowDef="let row; columns: secondTable;"></tr>
-  </table>
-</div>
-<div><button (click)="resetData()">Reset</button></div>
-
-
-
-        </div>
-      </div>
-    </div>
+      <mat-header-row *matHeaderRowDef="secondTable"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: secondTable;"></mat-row>
+    
+      <ng-container matColumnDef="#">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.phone}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="time">
+        <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.time}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="call">
+        <mat-header-cell *matHeaderCellDef>Call</mat-header-cell>
+        <mat-cell *matCellDef="let element"><div class="btn btn-dark">Call</div></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="done" >
+        <mat-header-cell *matHeaderCellDef>Done</mat-header-cell>
+        <mat-cell *matCellDef="let element"><div type="button" class="btn btn-dark" (click)='markDone(element.id)' >Done</div></mat-cell>
+    
+      </ng-container>
+    </mat-table>
+    <button (click)="resetData()">Reset</button>
+    
   </div>
 </div>
-
-
-
-
-
-<!--
-<div class="container float-left">
-  <div class="row">
-      <div class="col-mb">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Table</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let data of phones;index as i" >
-              <td (click)="toggleCollapse(i)"  class="btn col">{{data.name}}: {{data.phoneCalls.length}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <div *ngFor="let data of phones;index as i">
-          <div *ngIf="isCollapsed[i]">
-          <div></div>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Call</th>
-                  <th scope="col">Done</th>
-                </tr>
-              </thead>
-          
-              <tbody class="table-group-divider">
-                <tr *ngFor="let item of phones[i].phoneCalls">
-                  <td>{{item.id}}</td>
-                  <td>{{item.phone}}</td>
-                  <td>{{item.time}}</td>
-                  <td>{{item.date}}</td>
-                  <td><div type="button" class="btn btn-dark">Call</div></td>
-                  <td><div type="button" class="btn btn-dark" (click)='markDone(item.id)'>Done</div></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-  </div>
-</div>
--->
-
-<!--
-<div class="container">
-  <div class="row justify-content-center">
-      <div class="col-md-8">
-          <div class="card">
-              <div class="card-header">
-                  <h3 class="text-center">{{name}}</h3>
-              </div>
-              <div class="card-body">
-                <div class="container float-left">
-                <div class="row">
-                  <div class="col-mb">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Table</th>
-                        </tr>
-                      </thead>
-            
-                      <tbody>
-                        <tr *ngFor="let data of phones;index as i" >
-                          <td (click)="toggleCollapse(i)"  class="btn col">{{data.name}}: {{data.phoneCalls.length}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-md-6">
-                    <div *ngFor="let data of phones;index as i">
-                      <div *ngIf="isCollapsed[i]">
-                      <div></div>
-                        <table class="table table-hover">
-                          <thead>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Phone</th>
-                              <th scope="col">Time</th>
-                              <th scope="col">Date</th>
-                              <th scope="col">Call</th>
-                              <th scope="col">Done</th>
-                            </tr>
-                          </thead>
-                      
-                          <tbody class="table-group-divider">
-                            <tr *ngFor="let item of phones[i].phoneCalls">
-                              <td>{{item.id}}</td>
-                              <td>{{item.phone}}</td>
-                              <td>{{item.time}}</td>
-                              <td>{{item.date}}</td>
-                              <td><div type="button" class="btn btn-dark">Call</div></td>
-                              <td><div type="button" class="btn btn-dark" (click)='markDone(item.id)'>Done</div></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-                <div><button (click)="resetData()">Reset</button></div>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
--->
