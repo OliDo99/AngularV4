@@ -25,7 +25,6 @@ export class RoutingComponent {
           placeholder.forEach((element: any) => {              
               this.arrData.push(element);
           });
-         
         })
       }
     );

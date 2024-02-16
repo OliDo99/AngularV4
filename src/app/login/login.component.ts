@@ -1,18 +1,15 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AsyncPipe} from '@angular/common';
-
-
-
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule} from '@angular/material/button';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +26,6 @@ import {AsyncPipe} from '@angular/common';
     AsyncPipe,
     FormsModule,
     ReactiveFormsModule
-    
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -41,10 +37,9 @@ export class LoginComponent {
   InputUsername = new FormControl('');
   InputPassword = new FormControl('');
   response= true;
- 
 
   constructor(private http: HttpClient,private router :Router) {}  
-  
+
   AuthenticateExt(){
 
     this.http.post("https://api.omni-a.cz/Apps/AuthenticateExt",{
@@ -67,8 +62,6 @@ export class LoginComponent {
     })
     .subscribe((data:any) => {
       this.router.navigate(['/routing', {access_token: data["Result"].access_token}]);
-      
     })
   }
-  
 }

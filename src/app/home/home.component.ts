@@ -3,6 +3,7 @@ import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
+import {MatRippleModule} from '@angular/material/core';
 
 export interface CALLS {
   number: number;
@@ -22,7 +23,8 @@ export interface TYPE {
   imports: [
     CommonModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatRippleModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
