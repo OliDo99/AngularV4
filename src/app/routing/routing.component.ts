@@ -15,14 +15,12 @@ export class RoutingComponent {
   arrData: Array<{ID: string,Name:string,SecurityContextTypeID:string,UserSecurityContextID:string}> = []
 
   constructor(private route: ActivatedRoute,private http:HttpClient,private router:Router) {
-    var placeholder;
     this.route.params.subscribe(params => {
         this.http.get("https://api-bnd1.omni-a.cz/Apps/SecurityContexts/Available",{
           headers: { access_token: params['access_token'] }
         })
         .subscribe((data:any)=>{
-          placeholder = data["Result"][0]["SecurityContexts"];
-          placeholder.forEach((element: any) => {              
+          data["Result"][0]["SecurityContexts"].forEach((element: any) => {              
               this.arrData.push(element);
           });
         })
