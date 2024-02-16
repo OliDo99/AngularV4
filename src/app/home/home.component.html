@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="col-mb">
-    <mat-table [dataSource]="phones" >
+  <div class="col">
+    <mat-table [dataSource]="callsArray" >
 
-      <mat-header-row *matHeaderRowDef="displayedColumns" @blub></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></mat-row>
 
       <ng-container matColumnDef="#">
@@ -18,9 +18,9 @@
     </mat-table> 
   </div>
 
-  <div class="col-mb">
+  <div class="col">
 
-    <mat-table [dataSource]="Data" *ngIf="Data" >
+    <mat-table [dataSource]="dataCalls" *ngIf="dataCalls" >
 
       <mat-header-row *matHeaderRowDef="secondTable"></mat-header-row>
       <mat-row *matRowDef="let row; columns: secondTable;"></mat-row>
@@ -48,7 +48,7 @@
       </ng-container>
       <ng-container matColumnDef="done" >
         <mat-header-cell *matHeaderCellDef>Done</mat-header-cell>
-        <mat-cell *matCellDef="let element"><div type="button" class="btn btn-dark" (click)='markDone(element.id)' >Done</div></mat-cell>
+        <mat-cell *matCellDef="let element"><div type="button" class="btn btn-dark" (click)='markDone(element.id)'>Done</div></mat-cell>
     
       </ng-container>
     </mat-table>

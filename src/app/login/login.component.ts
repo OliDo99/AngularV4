@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild,ElementRef } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
@@ -41,13 +41,11 @@ export class LoginComponent {
   InputUsername = new FormControl('');
   InputPassword = new FormControl('');
   response= true;
-  
-
+ 
 
   constructor(private http: HttpClient,private router :Router) {}  
   
   AuthenticateExt(){
-    this.action();
 
     this.http.post("https://api.omni-a.cz/Apps/AuthenticateExt",{
       DoMFA: false,
@@ -69,10 +67,8 @@ export class LoginComponent {
     })
     .subscribe((data:any) => {
       this.router.navigate(['/routing', {access_token: data["Result"].access_token}]);
+      
     })
   }
-  action(){
-    console.log(this.InputUsername.value)
-    console.log(this.InputPassword.value)
-  }
+  
 }

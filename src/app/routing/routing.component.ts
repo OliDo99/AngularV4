@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute,Router} from '@angular/router';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
+
 @Component({
   selector: 'app-routing',
   standalone: true,
@@ -29,6 +30,7 @@ export class RoutingComponent {
       }
     );
   }
+  
   Presed(ID:string,Name:string){
     this.router.navigate(['/home', {ID: ID,Name:Name}]);
   }
