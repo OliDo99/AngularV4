@@ -33,5 +33,4 @@ export class RoutingComponent {
   Presed(ID:string,Name:string){
     this.router.navigate(['/home', {ID: ID,Name:Name}]);
   }
-  
 }
