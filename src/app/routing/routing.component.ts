@@ -6,7 +6,7 @@ import { HttpClient,HttpClientModule } from '@angular/common/http';
 
 interface CallArray {
   ID: string;
-  Name:string;
+  Name: string;
   SecurityContextTypeID:string
   UserSecurityContextID:string;
 }
@@ -28,14 +28,14 @@ export class RoutingComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.http.get("https://api-bnd1.omni-a.cz/Apps/SecurityContexts/Available",{
         headers: { access_token: params['access_token'] }
-      }).subscribe((data:any)=>{
+      }).subscribe(( data : any )=>{
         this.arrData = data["Result"][0]["SecurityContexts"];
       })
     });
   }
   arrData!: CallArray[]
 
-  presed(ID:string,Name:string){
-    this.router.navigate(['/home', {ID: ID,Name:Name}]);
+  presed( ID: string,Name: string ){
+    this.router.navigate(['/home', { ID: ID, Name: Name }]);
   }
 }

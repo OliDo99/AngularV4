@@ -9,7 +9,6 @@ interface PhoneCalls {
   name: string;
   phoneCalls: CallArray[];
 }
-
 interface CallArray {
   number: number;
   phone: string;
@@ -32,19 +31,19 @@ interface CallArray {
 })
 
 export class HomeComponent implements OnInit{
-  constructor(private http: HttpClient,private route: ActivatedRoute) {}
+  constructor( private http: HttpClient,private route: ActivatedRoute) {}
   ngOnInit(): void {
-    this.route.params.subscribe(params=>{
+    this.route.params.subscribe( params =>{
       this.http.post(this.url +"/getData",{"securityContexts": params['ID']})
-    .subscribe((data:any) => {
+    .subscribe(( data: any ) => {
         this.callInterface = data;
     })})
   }
-  callInterface!:PhoneCalls[];
+  callInterface!: PhoneCalls[];
   displayedColumns = [ 'name', '#'];
   secondTable = [ '#', 'phone', 'time', 'date', 'call', 'done'];
   url = "http://127.0.0.1:5000";
-  dataCalls:any;
+  dataCalls: any;
   dataName!: string;
 
   onRowClick(row: any) {
@@ -54,7 +53,7 @@ export class HomeComponent implements OnInit{
 
   markDone(id: number){
     this.route.params.subscribe(params=>{
-      this.http.post(this.url +"/markDone",{"ID":id,"securityContexts": params['ID']}).subscribe((data: any) => {
+      this.http.post( this.url +"/markDone",{"ID":id,"securityContexts": params['ID']}).subscribe((data: any) => {
         this.callInterface = data;
         this.dataCalls = this.callInterface.find(person => person.name === this.dataName)?.phoneCalls;
       })});

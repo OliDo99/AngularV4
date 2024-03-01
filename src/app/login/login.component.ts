@@ -42,7 +42,6 @@ export class LoginComponent {
   response= true; 
 
   AuthenticateExt(){
-
     this.http.post("https://api.omni-a.cz/Apps/AuthenticateExt",{
       DoMFA: false,
       ProviderType: "Native",
@@ -56,6 +55,7 @@ export class LoginComponent {
       }
     });
   }
+
   ValidateMFA(userID:string,accessToken:string){
     this.http.get("https://api.omni-a.cz/Apps/ValidateMFA",{
       params: { userID: userID, mfaToken: this.mfaToken },
