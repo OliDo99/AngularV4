@@ -14,7 +14,8 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
+  imports: 
+  [
     CommonModule,
     MatSelectModule,
     MatInputModule,
@@ -32,13 +33,13 @@ import { AsyncPipe } from '@angular/common';
 
 })
 export class LoginComponent {
+  constructor(private http: HttpClient,private router :Router) {}
+
   mfaToken="sGbITsYbZASmuJ1Ixlj71JrhgNhCWQQYrht08Fij/7VZFYB7ssxfaGzSidLcMvML2pDvjUvVziiSzNH+bhbpXLQt1c8C7qUnjKK51qzXIsV4fXIkmOLY5UhTA/Lc2Hv25J/soqZg1v6UTgzySMzshg==";
   hide = true;
   InputUsername = new FormControl('');
   InputPassword = new FormControl('');
-  response= true;
-
-  constructor(private http: HttpClient,private router :Router) {}  
+  response= true; 
 
   AuthenticateExt(){
 
@@ -53,15 +54,14 @@ export class LoginComponent {
       if(this.response){
         this.ValidateMFA(data["Result"].user_list[0].userid,data["Result"].access_token);
       }
-    })
+    });
   }
   ValidateMFA(userID:string,accessToken:string){
     this.http.get("https://api.omni-a.cz/Apps/ValidateMFA",{
       params: { userID: userID, mfaToken: this.mfaToken },
       headers: { access_token: accessToken }
-    })
-    .subscribe((data:any) => {
+    }).subscribe((data:any) => {
       this.router.navigate(['/routing', {access_token: data["Result"].access_token}]);
-    })
+    });
   }
 }

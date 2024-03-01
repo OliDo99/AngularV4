@@ -1,20 +1,21 @@
-import { Component,OnInit } from '@angular/core';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core';
 
-export interface CALLS {
+interface PhoneCalls {
+  name: string;
+  phoneCalls: CallArray[];
+}
+
+interface CallArray {
   number: number;
   phone: string;
   time: string;
   date: string;
   done: boolean;
-}
-export interface TYPE {
-  name:string,
-  phoneCalls: CALLS[]
 }
 
 @Component({
@@ -36,42 +37,33 @@ export class HomeComponent implements OnInit{
     this.route.params.subscribe(params=>{
       this.http.post(this.url +"/getData",{"securityContexts": params['ID']})
     .subscribe((data:any) => {
-      this.toArray(data);
-      })})
+        this.callInterface = data;
+    })})
   }
-  callsArray: TYPE[] = [];
-  displayedColumns: string[] = [ 'name', '#'];
-  secondTable: string[] = ['#', 'phone', 'time','date','call','done'];
-  title = 'AngularV3';
+  callInterface!:PhoneCalls[];
+  displayedColumns = [ 'name', '#'];
+  secondTable = [ '#', 'phone', 'time', 'date', 'call', 'done'];
   url = "http://127.0.0.1:5000";
   dataCalls:any;
-  dataName:string | undefined;
+  dataName!: string;
 
   onRowClick(row: any) {
     this.dataName = row.name;
-    this.dataCalls = row.phoneCalls
-  }
-
-  toArray(data:any){
-    this.callsArray = data.map((item: any) => ({
-      name: item.name,
-      phoneCalls: item.phoneCalls
-    }));
+    this.dataCalls = row.phoneCalls;
   }
 
   markDone(id: number){
     this.route.params.subscribe(params=>{
       this.http.post(this.url +"/markDone",{"ID":id,"securityContexts": params['ID']}).subscribe((data: any) => {
-        this.toArray(data);
-        this.callsArray.forEach(value=>{if (value.name == this.dataName){ this.dataCalls = value.phoneCalls }})
-      })})
+        this.callInterface = data;
+        this.dataCalls = this.callInterface.find(person => person.name === this.dataName)?.phoneCalls;
+      })});
   }
-
   resetData(){
     this.route.params.subscribe(params=>{
       this.http.post(this.url + "/reset",{"securityContexts": params['ID']}).subscribe((data:any) =>{
-        this.toArray(data);
-        this.callsArray.forEach(value=>{if(value.name == this.dataName){ this.dataCalls = value.phoneCalls }})
-      })})
+        this.callInterface = data;
+        this.dataCalls = this.callInterface.find(person => person.name === this.dataName)?.phoneCalls;
+      })});
   }
 }

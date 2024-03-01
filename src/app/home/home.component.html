@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col">
-    <mat-table [dataSource]="callsArray" >
+    <mat-table [dataSource]="callInterface" >
 
       <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
-      <mat-row matRipple *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)" [ngClass]="{'make-gold': row.name == dataName}"></mat-row>
+      <mat-row matRipple *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)" [ngClass]="{'selected': row.name == dataName}"></mat-row>
 
       <ng-container matColumnDef="#">
         <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
@@ -21,7 +21,6 @@
   <div class="col">
 
     <mat-table [dataSource]="dataCalls" *ngIf="dataCalls" >
-
       <mat-header-row *matHeaderRowDef="secondTable"></mat-header-row>
       <mat-row matRipple *matRowDef="let row; columns: secondTable;"></mat-row>
     
@@ -48,7 +47,6 @@
       <ng-container matColumnDef="done" >
         <mat-header-cell *matHeaderCellDef>Done</mat-header-cell>
         <mat-cell *matCellDef="let element"><div type="button" class="btn btn-dark" (click)='markDone(element.id)'>Done</div></mat-cell>
-    
       </ng-container>
     </mat-table>
     <button (click)="resetData()">Reset</button>
